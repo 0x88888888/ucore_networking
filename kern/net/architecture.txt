@@ -1,0 +1,57 @@
+每一层的一个网络协议都对应一个进程
+
+不同的 mbox id ，有不同的目的,
+每个协议进程永远都在自己的mbox上recv,接受到下层或者上层 过来的数据，当处理完收到的数据之后，又在自己的mbox上recv
+
+网卡驱动层
+       mbox_nic 等待接受ethernet层发过来的数据，发送出去, 等待网卡读取到的数据，提供给ethernet层进程使用
+       
+ethernet:
+       mbox_eth 
+arp:
+       mbox_arp
+ip:
+       mbox_ip
+icmp:  
+       mbox_icmp
+udp:
+       mbox_udp
+tcp:
+       mbox_tcp
+
+
+
+
+
+ether
+     rarp
+     arp
+     ip
+       icmp
+       igmp
+       rip
+       udp
+          snmp
+          tftp
+       tcp
+          ftp
+          http
+          telnet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+各种io操作在这vfs这一层从inode转到 device对象的io操作
+
+比如
+ sys_open(path,flags)
+    sysfile_open(path,flags)  在这里找到node对象
+        vfs_open(path,node,flags)
+          node->in_ops->vop_open(node, open_flags)
+           device->d_open(struct device *dev, uint32_t open_flags)
