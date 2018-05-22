@@ -35,6 +35,7 @@ tcpfin1(struct tcb *ptcb, struct ep *pep) {
 		    // 没有收到ACK会议，则双方同时关闭
             ptcb->tcb_state = TCPS_CLOSING;
 		} else {
+			//FIN已经被回复了
 			ptcb->tcb_state = TCPS_TIMEWAIT;
 			signal(&(ptcb->tcb_ocsem));
 			tcpwait(ptcb);
