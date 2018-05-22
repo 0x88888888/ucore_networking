@@ -88,7 +88,7 @@ tcpacked(struct tcb *ptcb, struct ep *pep) {
     
 	//由于已经确认，调整发送缓冲区信息
 	ptcb->tcb_sbstart = (ptcb->tcb_sbstart+acked) % ptcb->tcb_sbsize;
-    //未发送的字符降低
+    //未发送的字符减少，发送缓冲区空间增加了
     ptcb->tcb_sbcount -= acked;
 
     if (acked) {

@@ -54,7 +54,7 @@ tcpinp(void* args) {
              */
     		tcpackit(ptcb, pep);
     	} else {
-            //有数据(包括SYN,ACK标记)，在可接受范围内
+            //options数据，目前只有max segment size
             tcpopts(ptcb, pep);//处理options数据
             //跳到相应的状态函数去处理
             tcpswitch[ptcb->tcb_state](ptcb, pep);

@@ -19,6 +19,8 @@ tcpfin1(struct tcb *ptcb, struct ep *pep) {
 		tcpreset(pep);
 		return tcpabort(ptcb, TCPE_RESET);
 	}
+
+	//预处理
 	if (tcpacked(ptcb, pep) == SYSERR){
 		return OK;
 	}
@@ -27,8 +29,10 @@ tcpfin1(struct tcb *ptcb, struct ep *pep) {
 	tcpswindow(ptcb, pep);
 
 	if (ptcb->tcb_flags & TCBF_RDONE) {
+		//RDONE，说明在FIN1状态接收到对方已经发送了的FIN了
 		if (ptcb->tcb_code & TCPF_FIN) { /* FIN not ACKed*/
-		    // 如果TCPF_FIN没有被清除，则双方同时关闭
+		    // 如果TCPF_FIN没有被清除，说明也是刚刚发送出去FIN,
+		    // 没有收到ACK会议，则双方同时关闭
             ptcb->tcb_state = TCPS_CLOSING;
 		} else {
 			ptcb->tcb_state = TCPS_TIMEWAIT;
